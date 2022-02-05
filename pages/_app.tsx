@@ -6,6 +6,7 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { WalletLinkConnector } from 'wagmi/connectors/walletLink';
 import { providers } from 'ethers';
+import theme from '../theme';
 
 // Get environment variables
 const infuraId = process.env.NEXT_PUBLIC_INFURA_ID as string;
@@ -55,7 +56,7 @@ const provider = ({ chainId }: ProviderConfig) =>
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider autoConnect connectors={connectors} provider={provider}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
     </Provider>

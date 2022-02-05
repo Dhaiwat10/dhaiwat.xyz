@@ -37,7 +37,7 @@ export const Web3Modal: React.FC<Web3ModalProps> = ({ isOpen, onClose }) => {
     try {
       const response = await signMessage();
       if (!response.error) {
-        const res = await fetch(`/api/verify?message=${signData}`);
+        const res = await fetch(`/api/verify?message=${response.data}`);
         if (!res.ok) {
           throw new Error(res.statusText);
         }

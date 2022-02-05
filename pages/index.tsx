@@ -19,19 +19,23 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ entries }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [{ data: accountData }, disconnect] = useAccount({
-    fetchEns: true,
-  });
 
   return (
-    <Container textAlign='center'>
+    <Container>
       <VStack>
-        <Heading>Welcome</Heading>
+        <Heading>Dhaiwat Pandya</Heading>
         <Button onClick={onOpen}>Sign my guestbook</Button>
         <Web3Modal isOpen={isOpen} onClose={onClose} />
         <Divider />
         <Heading>Entries</Heading>
-        <VStack alignItems='start'>
+        <VStack
+          width={{
+            sm: '100%',
+            md: '50%',
+            lg: '33%',
+            xl: '25%',
+          }}
+        >
           {entries.map((entry) => (
             <Account key={entry.address} address={entry.address} />
           ))}
