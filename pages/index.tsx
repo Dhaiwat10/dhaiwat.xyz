@@ -6,27 +6,45 @@ import {
   Divider,
   Heading,
   HStack,
-  Text,
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
 import { Web3Modal } from '../components/Web3Modal';
-import { useAccount } from 'wagmi';
 import { Entry, getEntries } from './api/entries';
 import { Account } from '../components/Account';
+import { useState } from 'react';
+
+const useEntries = () => {
+  const [entries, setEntries] = useState<Entry[]>();
+
+  const fetchEntries = async () => {
+    const data = await fetch('/api/entries').then((r) => r.json());
+    setEntries(data.entries as Entry[]);
+  };
+
+  return {
+    entries,
+    fetchEntries,
+  };
+};
 
 interface HomeProps {
   entries: Entry[];
 }
 
 const Home: NextPage<HomeProps> = ({ entries }) => {
+  const { entries: latestEntries, fetchEntries } = useEntries();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const data = latestEntries || entries;
 
   return (
     <Container pt={20}>
       <VStack spacing={8}>
         <Box textAlign='center'>
-          <Heading as='h1' size='xl'>Dhaiwat Pandya</Heading>
+          <Heading as='h1' size='xl'>
+            Dhaiwat Pandya
+          </Heading>
           <Heading
             as='a'
             size='sm'
@@ -38,7 +56,11 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
           </Heading>
         </Box>
         <Button onClick={onOpen}>Sign my guestbook</Button>
-        <Web3Modal isOpen={isOpen} onClose={onClose} />
+        <Web3Modal
+          isOpen={isOpen}
+          onClose={onClose}
+          fetchEntries={fetchEntries}
+        />
         <Divider />
         <Box textAlign='center'>
           <Heading size='lg'>📓 Guestbook entries</Heading>
@@ -54,7 +76,7 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
             xl: '25%',
           }}
         >
-          {entries.map((entry) => (
+          {data.map((entry) => (
             <Account key={entry.address} address={entry.address} />
           ))}
         </VStack>

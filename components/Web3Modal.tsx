@@ -20,9 +20,14 @@ const message = 'gm';
 interface Web3ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  fetchEntries: () => Promise<void>;
 }
 
-export const Web3Modal: React.FC<Web3ModalProps> = ({ isOpen, onClose }) => {
+export const Web3Modal: React.FC<Web3ModalProps> = ({
+  isOpen,
+  onClose,
+  fetchEntries,
+}) => {
   const [{ data, error: connectError, loading }, connect] = useConnect();
   const [_, disconnect] = useAccount();
   const [
@@ -49,6 +54,7 @@ export const Web3Modal: React.FC<Web3ModalProps> = ({ isOpen, onClose }) => {
       setSuccess(false);
     } finally {
       setShowErrors(true);
+      fetchEntries();
     }
   };
 
