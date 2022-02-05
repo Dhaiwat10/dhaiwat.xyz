@@ -1,5 +1,6 @@
 import type { NextPage, NextPageContext } from 'next';
 import {
+  Box,
   Button,
   Container,
   Divider,
@@ -21,13 +22,19 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Container>
-      <VStack>
+    <Container pt={20}>
+      <VStack spacing={8}>
         <Heading>Dhaiwat Pandya</Heading>
         <Button onClick={onOpen}>Sign my guestbook</Button>
         <Web3Modal isOpen={isOpen} onClose={onClose} />
         <Divider />
-        <Heading>Entries</Heading>
+        <Box textAlign='center'>
+          <Heading>Entries</Heading>
+          <Heading as='h2' size='sm'>
+            These kind people said gm
+          </Heading>
+        </Box>
+
         <VStack
           width={{
             sm: '100%',
