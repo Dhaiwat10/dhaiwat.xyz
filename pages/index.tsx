@@ -130,7 +130,7 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
                 </MyLink>
               </ListItem>
               <ListItem>
-                <MyLink href='https://github.com/developer-dao/web3-ui'>
+                <MyLink href='https://mirror.xyz/dhaiwat.eth/O5CK6Tjfv8uhl6FPbjT0yZ8LUwViDPWGYHdu9khRWpM'>
                   A guide to Web3 for Web2 frontend devs
                 </MyLink>
               </ListItem>
