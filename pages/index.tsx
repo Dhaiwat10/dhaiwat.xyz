@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import {
+  Avatar,
   Box,
   Button,
   Container,
@@ -68,6 +69,7 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
           flexDirection='column'
           gap='20px'
         >
+          <Avatar src='/avi_cropped.jpeg' mx='auto' size='2xl' />
           <Heading as='h1' size='xl'>
             Dhaiwat Pandya 🚀
           </Heading>
@@ -157,6 +159,7 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
             lg: '33%',
             xl: '25%',
           }}
+          height='20vh'
         >
           {data.map((entry) => (
             <Account key={entry.address} address={entry.address} />
