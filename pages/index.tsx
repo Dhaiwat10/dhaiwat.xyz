@@ -137,6 +137,11 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
                 </MyLink>
               </ListItem>
               <ListItem>
+                <MyLink href='https://github.com/dhaiwat10/create-web3-frontend'>
+                  create-web3-frontend
+                </MyLink>
+              </ListItem>
+              <ListItem>
                 <MyLink href='https://github.com/dhaiwat10/react-link-preview'>
                   react-link-preview
                 </MyLink>
