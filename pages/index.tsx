@@ -10,6 +10,7 @@ import {
   Link,
   List,
   ListItem,
+  SimpleGrid,
   Text,
   useDisclosure,
   VStack,
@@ -17,7 +18,8 @@ import {
 import { Web3Modal } from '../components/Web3Modal';
 import { Entry, getEntries } from './api/entries';
 import { Account } from '../components/Account';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { Photo } from '../components/Photo';
 
 const MyLink = ({
   href,
@@ -49,11 +51,32 @@ interface HomeProps {
   entries: Entry[];
 }
 
+const importAll = (r: any) => r.keys().map(r);
+
 const Home: NextPage<HomeProps> = ({ entries }) => {
   const { entries: latestEntries, fetchEntries } = useEntries();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [guestbookExpanded, setGuestbookExpanded] = useState(false);
 
   const data = latestEntries || entries;
+
+  const entriesToBeShown = useMemo(() => {
+    return data.reverse().slice(0, guestbookExpanded ? data.length : 10);
+  }, [data, guestbookExpanded]);
+
+  const collapseGuestbook = () => setGuestbookExpanded(false);
+  const expandGuestbook = () => setGuestbookExpanded(true);
+
+  const [photos, setPhotos] = useState<any[]>();
+
+  useEffect(() => {
+    setPhotos(
+      importAll(
+        // @ts-ignore
+        require.context('../public/memories/', false, /\.(png|jpe?g|svg)$/)
+      )
+    );
+  }, []);
 
   return (
     <Container py={20}>
@@ -109,7 +132,7 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
             </Button>
           </HStack>
           <Text>
-            Web3 frontend engineer at{' '}
+            web3 frontend engineer at{' '}
             <MyLink href='https://mazury.xyz'>Mazury.</MyLink> Building free,
             open-source software with{' '}
             <MyLink href='https://twitter.com/developer_dao'>
@@ -164,12 +187,31 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
             lg: '33%',
             xl: '25%',
           }}
-          height='20vh'
         >
-          {data.map((entry) => (
+          {entriesToBeShown.map((entry) => (
             <Account key={entry.address} address={entry.address} />
           ))}
         </VStack>
+        {guestbookExpanded ? (
+          <Button onClick={collapseGuestbook}>Collapse</Button>
+        ) : (
+          <Button onClick={expandGuestbook}>Expand Guestbook</Button>
+        )}
+
+        <Divider />
+
+        <Box textAlign='center'>
+          <Heading size='lg'>📸 Some memories</Heading>
+          <Heading as='h2' size='xs'>
+            Places I&apos;ve been to and the people I&apos;ve met
+          </Heading>
+        </Box>
+
+        <SimpleGrid columns={1} gap={12} justifyItems='center'>
+          {photos?.map((photo, idx) => {
+            return <Photo src={photo.default.src} alt='frens' key={idx} />;
+          })}
+        </SimpleGrid>
       </VStack>
     </Container>
   );
