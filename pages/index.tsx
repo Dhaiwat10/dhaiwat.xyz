@@ -61,7 +61,7 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
   const data = latestEntries || entries;
 
   const entriesToBeShown = useMemo(() => {
-    return data.reverse().slice(0, guestbookExpanded ? data.length : 10);
+    return data.slice(0, guestbookExpanded ? data.length : 10);
   }, [data, guestbookExpanded]);
 
   const collapseGuestbook = () => setGuestbookExpanded(false);
@@ -197,6 +197,26 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
         ) : (
           <Button onClick={expandGuestbook}>Expand Guestbook</Button>
         )}
+
+        <Divider />
+
+        <Box textAlign='center'>
+          <Heading size='lg'>📍 Places I&apos;ve visited this year</Heading>
+          <Heading as='h2' size='xs'>
+            Traveling is my fav thing!
+          </Heading>
+        </Box>
+
+        <SimpleGrid columns={4} gap={4}>
+          <Text>Dehradun 🇮🇳</Text>
+          <Text>Shimla 🇮🇳</Text>
+          <Text>Mussoorie 🇮🇳</Text>
+          <Text>Chandigarh 🇮🇳</Text>
+          <Text>Mumbai 🇮🇳</Text>
+          <Text>Dubai 🇦🇪</Text>
+          <Text>Abu Dhabi 🇦🇪</Text>
+          <Text>Delhi 🇮🇳</Text>
+        </SimpleGrid>
 
         <Divider />
 
