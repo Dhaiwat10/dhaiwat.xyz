@@ -18,8 +18,9 @@ import {
 import { Web3Modal } from '../components/Web3Modal';
 import { Entry, getEntries } from './api/entries';
 import { Account } from '../components/Account';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Photo } from '../components/Photo';
+import { confetti } from '../confetti';
 
 const MyLink = ({
   href,
@@ -86,6 +87,48 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
     );
   }, []);
 
+  const rainbowLinkRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    let interval: NodeJS.Timer;
+    if (rainbowLinkRef.current) {
+      rainbowLinkRef.current.addEventListener('mouseover', () => {
+        interval = setInterval(() => {
+          confetti(rainbowLinkRef.current, {
+            image: '/rocket.svg',
+            width: `${Math.floor(Math.random() * 25) + 20}px`,
+            height: `${Math.floor(Math.random() * 25) + 20}px`,
+            elementCount: 7,
+            duration: 3000,
+            angle: 90,
+            spread: 360,
+            startVelocity: 20,
+            stagger: 3,
+            perspective: '500px',
+            dragFriction: 0.12,
+          });
+          confetti(rainbowLinkRef.current, {
+            image: '/fire.svg',
+            width: `${Math.floor(Math.random() * 25) + 20}px`,
+            height: `${Math.floor(Math.random() * 25) + 20}px`,
+            elementCount: 7,
+            duration: 3000,
+            angle: 90,
+            spread: 360,
+            startVelocity: 20,
+            stagger: 3,
+            perspective: '500px',
+            dragFriction: 0.12,
+          });
+        }, 160);
+      });
+      rainbowLinkRef.current.addEventListener('mouseout', () => {
+        clearInterval(interval);
+      });
+    }
+    return () => clearInterval(interval);
+  }, [rainbowLinkRef]);
+
   return (
     <Container py={20}>
       <Web3Modal
@@ -101,7 +144,7 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
           gap='20px'
         >
           <Avatar src='/avi_cropped.jpeg' mx='auto' size='xl' />
-          <Heading as='h1' size='xl'>
+          <Heading as='h1' size='xl' ref={rainbowLinkRef}>
             Dhaiwat Pandya 🚀
           </Heading>
           <Heading
