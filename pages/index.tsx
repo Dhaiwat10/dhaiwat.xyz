@@ -57,17 +57,25 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
   const { entries: latestEntries, fetchEntries } = useEntries();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [guestbookExpanded, setGuestbookExpanded] = useState(false);
+  const [galleryExpanded, setGalleryExpanded] = useState(false);
 
   const data = latestEntries || entries;
 
   const entriesToBeShown = useMemo(() => {
-    return data.slice(0, guestbookExpanded ? data.length : 10);
+    return data.reverse().slice(0, guestbookExpanded ? data.length : 10);
   }, [data, guestbookExpanded]);
 
   const collapseGuestbook = () => setGuestbookExpanded(false);
   const expandGuestbook = () => setGuestbookExpanded(true);
 
+  const collapseGallery = () => setGalleryExpanded(false);
+  const expandGallery = () => setGalleryExpanded(true);
+
   const [photos, setPhotos] = useState<any[]>();
+
+  const photosToBeShown = useMemo(() => {
+    return photos?.slice(0, galleryExpanded ? photos.length : 5);
+  }, [photos, galleryExpanded]);
 
   useEffect(() => {
     setPhotos(
@@ -92,7 +100,7 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
           flexDirection='column'
           gap='20px'
         >
-          <Avatar src='/avi_cropped.jpeg' mx='auto' size='2xl' />
+          <Avatar src='/avi_cropped.jpeg' mx='auto' size='xl' />
           <Heading as='h1' size='xl'>
             Dhaiwat Pandya 🚀
           </Heading>
@@ -128,7 +136,7 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
               href='https://mirror.xyz/dhaiwat.eth'
               target='_blank'
             >
-              Mirror
+              Blog
             </Button>
           </HStack>
           <Text>
@@ -143,6 +151,8 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
               the Moonshot Collective.
             </MyLink>
           </Text>
+
+          <Divider />
 
           <VStack>
             <Heading as='h3' size='md'>
@@ -172,14 +182,26 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
             </List>
           </VStack>
         </Box>
+
         <Divider />
+
+        <Text>
+          When I&apos;m not writing code, I like to write about all things life.
+          My weekends are reserved for the F1 races...unless there&apos;s a
+          really nice party happening. Then that.
+        </Text>
+
+        <Divider />
+
         <Box textAlign='center'>
           <Heading size='lg'>📓 Guestbook entries</Heading>
           <Heading as='h2' size='xs'>
             These kind people said gm.
           </Heading>
         </Box>
-        <Button onClick={onOpen}>Sign my guestbook</Button>
+        <Button onClick={onOpen} backgroundColor='teal.900'>
+          Sign my guestbook! ✍️
+        </Button>
         <VStack
           width={{
             sm: '100%',
@@ -197,6 +219,19 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
         ) : (
           <Button onClick={expandGuestbook}>Expand Guestbook</Button>
         )}
+
+        <Divider />
+
+        <Text>
+          Travelling the world is a dream of mine. I love meeting people from
+          different places &amp; backgrounds. I love hearing their stories. I
+          love making new friends. I love partying with them!
+        </Text>
+
+        <Text>
+          This year, I left my home in India to travel overseas to Dubai for the
+          first time ever and that experience has changed my life forever.
+        </Text>
 
         <Divider />
 
@@ -228,10 +263,25 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
         </Box>
 
         <SimpleGrid columns={1} gap={12} justifyItems='center'>
-          {photos?.map((photo, idx) => {
+          {photosToBeShown?.map((photo, idx) => {
             return <Photo src={photo.default.src} alt='frens' key={idx} />;
           })}
         </SimpleGrid>
+
+        {galleryExpanded ? (
+          <Button onClick={collapseGallery}>Collapse</Button>
+        ) : (
+          <Button onClick={expandGallery}>Expand Gallery</Button>
+        )}
+
+        <Divider />
+
+        <Text>
+          This site is{' '}
+          <MyLink href='https://github.com/dhaiwat10/dhaiwat.xyz'>
+            open source
+          </MyLink>
+        </Text>
       </VStack>
     </Container>
   );
