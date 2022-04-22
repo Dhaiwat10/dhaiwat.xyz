@@ -209,7 +209,12 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
               </ListItem>
               <ListItem>
                 <MyLink href='https://mirror.xyz/dhaiwat.eth/O5CK6Tjfv8uhl6FPbjT0yZ8LUwViDPWGYHdu9khRWpM'>
-                  A guide to Web3 for Web2 frontend devs
+                  A guide to web3 for frontend devs
+                </MyLink>
+              </ListItem>
+              <ListItem>
+                <MyLink href='https://web3cheatsheet.xyz'>
+                  web3cheatsheet.xyz
                 </MyLink>
               </ListItem>
               <ListItem>
