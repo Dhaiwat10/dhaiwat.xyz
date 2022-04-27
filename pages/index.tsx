@@ -7,7 +7,6 @@ import {
   Divider,
   Heading,
   HStack,
-  Link,
   List,
   ListItem,
   SimpleGrid,
@@ -21,18 +20,7 @@ import { Account } from '../components/Account';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Photo } from '../components/Photo';
 import { confetti } from '../confetti';
-
-const MyLink = ({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) => (
-  <Link href={href} target='_blank' color='green.300'>
-    {children}
-  </Link>
-);
+import { MyLink } from '../components/MyLink';
 
 const useEntries = () => {
   const [entries, setEntries] = useState<Entry[]>();
