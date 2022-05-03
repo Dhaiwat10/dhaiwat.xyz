@@ -17,13 +17,13 @@ const CVPage: NextPage = () => {
       <VStack textAlign='left' alignItems='start' spacing='4'>
         <Heading>Dhaiwat Pandya</Heading>
         <Text>
-          21 year old frontend developer and content creator. Currently working
+          21 year old frontend engineer and content creator. Currently working
           as a frontend engineer at{' '}
-          <MyLink href='https://mazury.xyz'>mazury.xyz</MyLink>.{' '}
+          <MyLink href='https://mazury.xyz'>mazury.xyz</MyLink>.<br />
           <MyLink href='https://twitter.com/developer_dao'>
             Developer DAO
           </MyLink>{' '}
-          Development Guild co-lead.
+          core contributor &amp; Development Guild co-lead.
         </Text>
 
         <VStack textAlign='left' alignItems='start'>
@@ -43,6 +43,10 @@ const CVPage: NextPage = () => {
           natural to me by now. I basically got all of my gigs because of the
           technical content I created around React and web3. This includes my
           articles, my tweets and my talks.
+          <br />
+          <br />
+          On average, my tweets get around <b>~700k impressions</b> each month
+          and each of my articles get around <b>~10k reads</b>.
         </Text>
 
         <Text>
@@ -64,9 +68,13 @@ const CVPage: NextPage = () => {
               A guide to web3 for web2 frontend devs
             </MyLink>
             : This is my best written content to date. This article got
-            RT&apos;d by many &apos;big&apos; ppl including @ethereum and
-            Brendan Eich (creator of JS, CEO of Brave Browser). I&apos;m
-            extremely proud of this one.
+            RT&apos;d by many &apos;big&apos; accounts including @ethereum and
+            Brendan Eich (creator of JavaScript). I&apos;m extremely proud of
+            this one.
+            <br />
+            Some numbers: <b>180k</b> tweet impressions, <b>10k</b> reads
+            <br />
+            <br />
           </ListItem>
 
           <ListItem>
@@ -184,9 +192,11 @@ const CVPage: NextPage = () => {
             <MyLink href='https://github.com/mazurylabs/mazury-frontend'>
               Mazury
             </MyLink>
-            : This is my current job. I joined Mazury in January &apos;22 and
-            basically created this from scratch. I designed the entire
-            architecture and am now leading our frontend team.
+            : This is my current job. Mazury has indexed the blockchain so that
+            recruiters can find talent easily based on their on-chain
+            credentials. I joined Mazury in January &apos;22 and basically
+            created this from scratch. I designed the entire architecture and am
+            now leading our frontend team.
           </ListItem>
 
           <ListItem>
