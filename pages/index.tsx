@@ -21,6 +21,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Photo } from '../components/Photo';
 import { confetti } from '../confetti';
 import { MyLink } from '../components/MyLink';
+import { WallOfLove } from '../components/WallOfLove';
+import { useRouter } from 'next/router';
 
 const useEntries = () => {
   const [entries, setEntries] = useState<Entry[]>();
@@ -43,6 +45,8 @@ interface HomeProps {
 const importAll = (r: any) => r.keys().map(r);
 
 const Home: NextPage<HomeProps> = ({ entries }) => {
+  const router = useRouter();
+
   const { entries: latestEntries, fetchEntries } = useEntries();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [guestbookExpanded, setGuestbookExpanded] = useState(false);
@@ -116,6 +120,8 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
     }
     return () => clearInterval(interval);
   }, [rainbowLinkRef]);
+
+  const goToWallOfLove = () => router.push('/wall-of-love');
 
   return (
     <Container py={20}>
@@ -255,6 +261,19 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
         ) : (
           <Button onClick={expandGuestbook}>Expand Guestbook</Button>
         )}
+
+        <Divider />
+
+        <VStack textAlign='center'>
+          <Heading size='lg'>❤️ Wall of love</Heading>
+          <Heading as='h2' size='xs'>
+            Some very nice things ppl have said about me!
+          </Heading>
+
+          <WallOfLove colCount={2} showFull={false} />
+
+          <Button onClick={goToWallOfLove}>See more</Button>
+        </VStack>
 
         <Divider />
 
