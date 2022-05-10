@@ -32,6 +32,10 @@ const useEntries = () => {
     setEntries(data.entries as Entry[]);
   };
 
+  useEffect(() => {
+    fetchEntries();
+  }, []);
+
   return {
     entries,
     fetchEntries,
@@ -44,18 +48,16 @@ interface HomeProps {
 
 const importAll = (r: any) => r.keys().map(r);
 
-const Home: NextPage<HomeProps> = ({ entries }) => {
+const Home: NextPage<HomeProps> = () => {
   const router = useRouter();
 
-  const { entries: latestEntries, fetchEntries } = useEntries();
+  const { entries: data, fetchEntries } = useEntries();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [guestbookExpanded, setGuestbookExpanded] = useState(false);
   const [galleryExpanded, setGalleryExpanded] = useState(false);
 
-  const data = latestEntries || entries;
-
   const entriesToBeShown = useMemo(() => {
-    return data.reverse().slice(0, guestbookExpanded ? data.length : 10);
+    return data?.reverse().slice(0, guestbookExpanded ? data.length : 10);
   }, [data, guestbookExpanded]);
 
   const collapseGuestbook = () => setGuestbookExpanded(false);
@@ -252,7 +254,7 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
             xl: '25%',
           }}
         >
-          {entriesToBeShown.map((entry) => (
+          {entriesToBeShown?.map((entry) => (
             <Account key={entry.address} address={entry.address} />
           ))}
         </VStack>
@@ -340,13 +342,6 @@ const Home: NextPage<HomeProps> = ({ entries }) => {
       </VStack>
     </Container>
   );
-};
-
-export const getServerSideProps = async () => {
-  const { data } = await getEntries();
-  return {
-    props: { entries: data },
-  };
 };
 
 export default Home;
