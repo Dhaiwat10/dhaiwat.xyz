@@ -23,6 +23,7 @@ import { confetti } from '../confetti';
 import { MyLink } from '../components/MyLink';
 import { WallOfLove } from '../components/WallOfLove';
 import { useRouter } from 'next/router';
+import { places } from '../places';
 
 const useEntries = () => {
   const [entries, setEntries] = useState<Entry[]>();
@@ -300,14 +301,11 @@ const Home: NextPage<HomeProps> = () => {
         </Box>
 
         <SimpleGrid columns={4} gap={4}>
-          <Text>Dehradun 🇮🇳</Text>
-          <Text>Shimla 🇮🇳</Text>
-          <Text>Mussoorie 🇮🇳</Text>
-          <Text>Chandigarh 🇮🇳</Text>
-          <Text>Mumbai 🇮🇳</Text>
-          <Text>Dubai 🇦🇪</Text>
-          <Text>Abu Dhabi 🇦🇪</Text>
-          <Text>Delhi 🇮🇳</Text>
+          {places.map((place) => (
+            <Text key={place.name}>
+              {place.name} {place.flag}
+            </Text>
+          ))}
         </SimpleGrid>
 
         <Divider />
