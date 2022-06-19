@@ -180,8 +180,8 @@ const Home: NextPage<HomeProps> = () => {
             </Button>
           </HStack>
           <Text>
-            DevRel @ <MyLink href='https://ankr.com'>Ankr.</MyLink> Building
-            free, open-source software @{' '}
+            DevRel @ <MyLink href='https://ankr.com'>Ankr.</MyLink> Retired 10x
+            engineer. Building free, open-source software @{' '}
             <MyLink href='https://twitter.com/developer_dao'>
               Developer DAO.
             </MyLink>
@@ -226,9 +226,10 @@ const Home: NextPage<HomeProps> = () => {
         <Divider />
 
         <Text>
-          When I&apos;m not writing code, I like to write about all things life.
-          My weekends are reserved for the F1 races...unless there&apos;s a
-          really nice party happening. Then that.
+          Still losing my way. Still learning to live.
+          <br /> <br />I love creating random things with code. I also like to
+          write - mostly on Twitter (lol) and sometimes on my blog. I&apos;m
+          also big on racing and probably a faster driver than you :D
         </Text>
 
         <Divider />
