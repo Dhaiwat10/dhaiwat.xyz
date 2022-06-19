@@ -4,6 +4,7 @@ import { verifyMessage } from 'ethers/lib/utils';
 import { createClient } from '@supabase/supabase-js';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 import { ethers } from 'ethers';
+import { NFT_CONTRACT_ADDRESS, NFT_IMG_URL } from '../../utils';
 
 const supabase = createClient(
   'https://tpuycrkgdcqwcwrihmjj.supabase.co',
@@ -24,19 +25,18 @@ export default async function handler(
   res: NextApiResponse<Data | Error>
 ) {
   const provider = new ethers.providers.JsonRpcProvider(
-    'https://rpc.ankr.com/polygon_mumbai',
-    80001
+    'https://rpc.ankr.com/polygon',
+    137
   );
-  const sdk = new ThirdwebSDK(provider, {
+  const signer = new ethers.Wallet(process.env.PRIVATE_KEY as string, provider);
+  const sdk = new ThirdwebSDK(signer, {
     gasless: {
       openzeppelin: {
         relayerUrl: process.env.RELAYER_WEBHOOK_URL as string,
       },
     },
   });
-  const nftContract = sdk.getNFTCollection(
-    '0x24bB3E4C3b2611976aA5494790Bd74e20F4CdeD3'
-  );
+  const nftContract = sdk.getNFTCollection(NFT_CONTRACT_ADDRESS);
 
   const message = req.query.message as string;
   const recoveredAddress = verifyMessage('gm', message);
@@ -55,8 +55,7 @@ export default async function handler(
   const metadata = {
     name: `Thanks for signing dhaiwat.xyz's guestbook! <3`,
     description: 'Dhaiwat loves you',
-    image:
-      'https://yvserbqzlsygbs4alzsbfautd3q7exfqwwflgzrspqikcdep.arweave.net/xWRI_hhlcsGDLgF5kEoKTHuHyXLC1irNmMnw_QoQyPU',
+    image: NFT_IMG_URL,
   };
 
   const tx = await nftContract.mintTo(recoveredAddress, metadata);
