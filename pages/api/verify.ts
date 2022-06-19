@@ -45,12 +45,13 @@ export default async function handler(
     .from('entries')
     .insert([{ address: recoveredAddress }]);
 
-  if (process.env.NODE_ENV === 'production' && error) {
-    if (error.code === '23505') {
-      return res.status(400).json({ error: 'You already have an entry.' });
-    }
-    return res.status(500).json({ error: error.message });
-  }
+  // Temp disable duplicate error so that people who have already signed can mint an NFT too
+  // if (process.env.NODE_ENV === 'production' && error) {
+  //   if (error.code === '23505') {
+  //     return res.status(400).json({ error: 'You already have an entry.' });
+  //   }
+  //   return res.status(500).json({ error: error.message });
+  // }
 
   const metadata = {
     name: `Thanks for signing dhaiwat.xyz's guestbook! <3`,

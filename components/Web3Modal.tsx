@@ -12,6 +12,7 @@ import {
   Link,
   Image,
   Heading,
+  Spinner,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useAccount, useConnect } from 'wagmi';
@@ -124,10 +125,13 @@ export const Web3Modal: React.FC<Web3ModalProps> = ({
                 <>
                   {' '}
                   {loading && (
-                    <Text>
-                      Just a second... preparing something for you. It will be
-                      worth the wait! {`:)`}
-                    </Text>
+                    <VStack>
+                      <Text>
+                        Sign the message and wait just a second... preparing
+                        something for you. It will be worth the wait! {`:)`}
+                      </Text>
+                      <Spinner />
+                    </VStack>
                   )}
                   <Button onClick={handleSign} disabled={loading}>
                     Sign message
