@@ -15,7 +15,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Web3Modal } from '../components/Web3Modal';
-import { Entry, getEntries } from './api/entries';
+import { Entry } from './api/entries';
 import { Account } from '../components/Account';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Photo } from '../components/Photo';
@@ -180,15 +180,10 @@ const Home: NextPage<HomeProps> = () => {
             </Button>
           </HStack>
           <Text>
-            web3 frontend engineer at{' '}
-            <MyLink href='https://mazury.xyz'>Mazury.</MyLink> Building free,
-            open-source software with{' '}
+            DevRel @ <MyLink href='https://ankr.com'>Ankr.</MyLink> Building
+            free, open-source software @{' '}
             <MyLink href='https://twitter.com/developer_dao'>
-              Developer DAO
-            </MyLink>{' '}
-            and{' '}
-            <MyLink href='https://twitter.com/moonshotcollect'>
-              the Moonshot Collective.
+              Developer DAO.
             </MyLink>
           </Text>
 

@@ -9,11 +9,17 @@ import {
   ModalOverlay,
   Text,
   VStack,
+  Link,
+  Image,
+  Heading,
+  Spinner,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useAccount, useConnect } from 'wagmi';
 import { useSignMessage } from 'wagmi';
 import Confetti from 'react-confetti';
+import { getOpenseaUrl, NFT_IMG_URL } from '../utils';
+import { motion } from 'framer-motion';
 
 const message = 'gm';
 
@@ -28,17 +34,17 @@ export const Web3Modal: React.FC<Web3ModalProps> = ({
   onClose,
   fetchEntries,
 }) => {
-  const [{ data, error: connectError, loading }, connect] = useConnect();
+  const [{ data, error: connectError }, connect] = useConnect();
   const [_, disconnect] = useAccount();
-  const [
-    { data: signData, error: signError, loading: signLoading },
-    signMessage,
-  ] = useSignMessage({ message });
+  const [__, signMessage] = useSignMessage({ message });
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [tokenId, setTokenId] = useState('');
   const [error, setError] = useState<any>();
   const [showErrors, setShowErrors] = useState(false);
 
   const handleSign = async () => {
+    setLoading(true);
     try {
       const response = await signMessage();
       if (!response.error) {
@@ -46,6 +52,10 @@ export const Web3Modal: React.FC<Web3ModalProps> = ({
         if (!res.ok) {
           throw new Error(res.statusText);
         }
+        const data = await res.json();
+        const { tokenId } = data;
+        console.log({ data });
+        setTokenId(tokenId);
         setSuccess(true);
         setShowErrors(false);
       }
@@ -55,7 +65,15 @@ export const Web3Modal: React.FC<Web3ModalProps> = ({
     } finally {
       setShowErrors(true);
       fetchEntries();
+      setLoading(false);
     }
+  };
+
+  const resetState = () => {
+    setTokenId('');
+    setSuccess(false);
+    setShowErrors(false);
+    setError(undefined);
   };
 
   return (
@@ -63,8 +81,7 @@ export const Web3Modal: React.FC<Web3ModalProps> = ({
       isOpen={isOpen}
       onClose={() => {
         onClose();
-        setError(null);
-        setShowErrors(false);
+        resetState();
       }}
     >
       {success && <Confetti style={{ zIndex: 2000 }} />}
@@ -75,12 +92,55 @@ export const Web3Modal: React.FC<Web3ModalProps> = ({
         <ModalBody>
           {data.connected ? (
             <VStack>
-              <Button onClick={handleSign} disabled={signLoading}>
-                Sign message
-              </Button>
-              <Button variant='outline' onClick={disconnect}>
-                Disconnect
-              </Button>
+              {success ? (
+                <VStack>
+                  <Text>
+                    As a thank you, I minted you an NFT ^_^ You can view it on
+                    Opensea{` `}
+                    <Link
+                      isExternal
+                      href={getOpenseaUrl(tokenId)}
+                      textDecoration='underline'
+                    >
+                      here
+                    </Link>
+                    {` <3`}
+                  </Text>
+                  <Image
+                    as={motion.img}
+                    onClick={() =>
+                      window.open(getOpenseaUrl(tokenId), '_blank')
+                    }
+                    cursor='pointer'
+                    src={NFT_IMG_URL}
+                    width={350}
+                    rounded='lg'
+                    dropShadow='lg'
+                    alt='A thank you message for you'
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  />
+                </VStack>
+              ) : (
+                <>
+                  {' '}
+                  {loading && (
+                    <VStack>
+                      <Text>
+                        Sign the message and wait just a second... preparing
+                        something for you. It will be worth the wait! {`:)`}
+                      </Text>
+                      <Spinner />
+                    </VStack>
+                  )}
+                  <Button onClick={handleSign} disabled={loading}>
+                    Sign message
+                  </Button>
+                  <Button variant='outline' onClick={disconnect || loading}>
+                    Disconnect
+                  </Button>
+                </>
+              )}
             </VStack>
           ) : (
             <VStack>
@@ -109,7 +169,6 @@ export const Web3Modal: React.FC<Web3ModalProps> = ({
           <ModalFooter textColor='red.700'>
             <VStack>
               {connectError && <Text>{connectError.message}</Text>}
-              {signError && <Text>{signError.message}</Text>}
               {error ? (
                 error.message === 'Bad Request' ? (
                   <Text>You already signed it ser</Text>
