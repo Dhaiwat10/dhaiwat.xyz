@@ -225,15 +225,6 @@ const Home: NextPage<HomeProps> = () => {
 
         <Divider />
 
-        <Text>
-          Still losing my way. Still learning to live.
-          <br /> <br />I love creating random things with code. I also like to
-          write - mostly on Twitter (lol) and sometimes on my blog. I&apos;m
-          also big on racing and probably a faster driver than you :D
-        </Text>
-
-        <Divider />
-
         <Box textAlign='center'>
           <Heading size='lg'>📓 Guestbook entries</Heading>
           <Heading as='h2' size='xs'>
@@ -263,28 +254,9 @@ const Home: NextPage<HomeProps> = () => {
 
         <Divider />
 
-        <VStack textAlign='center'>
-          <Heading size='lg'>❤️ Wall of love</Heading>
-          <Heading as='h2' size='xs'>
-            Some very nice things ppl have said about me!
-          </Heading>
-
-          <WallOfLove colCount={2} showFull={false} />
-
-          <Button onClick={goToWallOfLove}>See more</Button>
-        </VStack>
-
-        <Divider />
-
         <Text>
           Travelling the world is a dream of mine. I love meeting people from
-          different places &amp; backgrounds. I love hearing their stories. I
-          love making new friends. I love partying with them!
-        </Text>
-
-        <Text>
-          This year, I left my home in India to travel overseas to Dubai for the
-          first time ever and that experience has changed my life forever.
+          different places &amp; backgrounds. I love hearing their stories.
         </Text>
 
         <Divider />
