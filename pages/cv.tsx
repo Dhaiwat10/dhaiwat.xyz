@@ -53,7 +53,9 @@ const CVPage: NextPage = () => {
           tweets. I want to continue doing so on a more regular basis. With a
           strong technical background in the Javascript/TypeScript ecosystem,
           I&apos;m confident that I will add a new valuable dimension to your
-          devrel team.
+          devrel team. I am also extremely passionate about high-quality, free &
+          accessible education for developers which I believe is key to doing
+          good devrel work.
         </Text>
 
         <Divider />
@@ -192,6 +194,13 @@ const CVPage: NextPage = () => {
             </MyLink>
           </ListItem>
         </UnorderedList>
+
+        <Divider />
+
+        <Text>
+          I have also been regularly traveling whenever I can and hosting
+          meetups/events wherever I go. That&apos;s something I love doing.
+        </Text>
 
         <Divider />
 
