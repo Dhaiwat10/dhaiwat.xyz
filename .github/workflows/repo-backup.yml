@@ -1,0 +1,13 @@
+name: 'repo-backup'
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  repo-backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: repo-backup-ipfs
+        uses: Dhaiwat10/repo-backup-ipfs@v0.3
