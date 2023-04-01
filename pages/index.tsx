@@ -180,8 +180,8 @@ const Home: NextPage<HomeProps> = () => {
             </Button>
           </HStack>
           <Text>
-            DevRel @ <MyLink href='https://ankr.com'>Ankr.</MyLink> Retired 10x
-            engineer. Building free, open-source software @{' '}
+            Dev @ <MyLink href='https://www.fuel.network/'>Fuel.</MyLink> 10x
+            Buidl00r. Building free, open-source software @{' '}
             <MyLink href='https://twitter.com/developer_dao'>
               Developer DAO.
             </MyLink>
